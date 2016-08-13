@@ -4,7 +4,7 @@
   "description": "",
   "main": "dist/index.js",
   "scripts": {
-    "prepublish": "babel lib --out-dir dist",
+    "prepublish": "babel src --out-dir dist",
     "build": "webpack -p --progress --colors --config demo/webpack.config.js",
     "gh-pages": "gh-pages -d demo",
     "start": "webpack-dev-server --progress --colors --config demo/webpack.config.js",
