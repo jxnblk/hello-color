@@ -28,14 +28,14 @@ const getColor = (base, {
     .hex()
 }
 
-let adjustments = 0
-
 const resolveColor = base => options => (color, multiplier = 9 / 8) => {
   color = color || getColor(base, {
     ...options,
     multiplier
   })
+
   const contrast = chroma.contrast(base, color)
+
   if (contrast > options.contrast) {
     return color
   }
@@ -46,20 +46,36 @@ const resolveColor = base => options => (color, multiplier = 9 / 8) => {
     return resolveColor(base)(options)(null, -9/8)
   }
 
-  adjustments++
   color = getColor(base, {
     options,
     multiplier
   })
-  return resolveColor(base)(options)(color, multiplier + 1/8)
 
+  return resolveColor(base)(options)(color, multiplier + 1/8)
+}
+
+const rotate = base => deg => {
+  const [ h, s, l ] = chroma(base).hsl()
+  return chroma(h + deg, s, l, 'hsl').hex()
+}
+
+const getHues = base => length => {
+  const hues = []
+  for (let i = 0; i < length; i++) {
+    const deg = (360 / (length + 1)) * (i + 1)
+    const hex = rotate(base)(deg)
+    hues.push(hex)
+  }
+
+  return hues
 }
 
 const hello = (base, options = {}) => {
   const {
     saturation = 0,    // s shift amount
     lightness = 0.125, // l shift amount
-    contrast = 3    // min contrast
+    contrast = 3,      // min contrast
+    hues = 3
   } = options
 
   try {
@@ -90,7 +106,8 @@ const hello = (base, options = {}) => {
     color,
     contrast: chroma.contrast(base, color),
     dark: isDark,
-    scale: chroma.scale([base, color]).colors(8)
+    scale: chroma.scale([base, color]).colors(8),
+    hues: getHues(base)(hues)
   }
 
   return result
