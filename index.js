@@ -51,6 +51,7 @@ const input = h('input')({
     fontSize: 14,
     textAlign: 'center',
     padding: 16,
+    maxWidth: '100%',
     color: 'inherit',
     backgroundColor: 'transparent',
     border: 0,
@@ -108,28 +109,44 @@ const Title = ({ color, base }) => h('div')({
   })('color')
 )
 
-const Scale = ({ scale }) => h('div')({
+const ColorRow = ({ color, colors }) => h('div')({
   style: {
-    display: 'flex'
+    display: 'flex',
+    flexWrap: 'wrap',
+    paddingTop: 64,
+    paddingBottom: 64,
+    backgroundColor: color
   }
 })(
-  ...scale.map(color => h('div')({
+  ...colors.map(color => h('div')({
     style: {
       flex: '1 1 auto',
-      padding: 32,
+      padding: 8,
+      margin: 16,
       backgroundColor: color,
       transition: 'background-color .5s ease-out'
     }
-  })())
+  })(
+    input({
+      readonly: true,
+      title: 'Click to select color value',
+      onclick: e => {
+        e.stopPropagation()
+        e.target.setSelectionRange(0, e.target.value.length)
+      },
+      name: color,
+      value: color.toLowerCase()
+    })()
+  ))
 )
 
-const Footer = ({ base, dark }) => h('footer')({
+const Footer = ({ base, color, dark }) => h('footer')({
   style: {
     fontFamily: '-apple-system, sans-serif',
     fontSize: 14,
     padding: 32,
     color: base,
-    backgroundColor: dark ? 'white' : 'black'
+    backgroundColor: color
   }
 })(
   link({
@@ -185,8 +202,9 @@ const Root = ({
       })(),
       pre(preText)
     ),
-    Scale(props),
-    Footer(props)
+    Footer({ color, ...props }),
+    ColorRow({ color, colors: props.scale.slice(0, props.scale.length - 1) }),
+    ColorRow({ color, colors: props.hues }),
   )
 }
 
@@ -195,7 +213,8 @@ const render = () => {
   const color = bikeshed()
   const result = hello(color, {
     saturation: .25,
-    contrast: 3
+    contrast: 3,
+    hues: 5,
   })
   console.log(result.base, result.color)
 
