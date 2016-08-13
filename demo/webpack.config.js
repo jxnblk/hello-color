@@ -2,15 +2,14 @@
 var webpack = require('webpack')
 
 module.exports = {
-
   entry:  {
     dev: [
       'webpack-dev-server/client?http://localhost:8080/',
       'webpack/hot/only-dev-server',
-      './demo/entry.js'
+      './demo/index.js'
     ],
     bundle: [
-      './demo/entry.js'
+      './demo/index.js'
     ],
   },
 
@@ -41,5 +40,4 @@ module.exports = {
   devServer: {
     hot: true
   }
-
 }
