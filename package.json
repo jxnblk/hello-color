@@ -1,7 +1,7 @@
 {
   "name": "hello-color",
-  "version": "1.0.0-beta3",
-  "description": "",
+  "version": "1.0.0",
+  "description": "Functional color palette generator",
   "main": "dist/index.js",
   "scripts": {
     "prepublish": "babel src --out-dir dist",
