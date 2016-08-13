@@ -5,9 +5,9 @@
   "main": "dist/index.js",
   "scripts": {
     "prepublish": "babel lib --out-dir dist",
-    "demo": "webpack -p --progress --colors --config demo/webpack.config.js",
+    "build": "webpack -p --progress --colors --config demo/webpack.config.js",
     "start": "webpack-dev-server --progress --colors --config demo/webpack.config.js",
-    "test": "ava test"
+    "test": "ava -v"
   },
   "author": "Brent Jackson",
   "license": "MIT",
