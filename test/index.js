@@ -5,7 +5,7 @@ import bikeshed from '@jxnblk/bikeshed'
 
 import hello from '../src'
 
-let result = hello('#f00')
+const result = hello('#f00')
 
 test('returns an object', t => {
   t.is(typeof result, 'object')
@@ -37,8 +37,8 @@ const colors = Array.from({ length: Math.pow(2, 12) }, (a, i) => i)
 test(`should pass contrast (Testing ${colors.length} random colors)`, t => {
   t.plan(colors.length)
 
-  colors.forEach((result) => {
-    t.is(result.contrast >= 3, true)
+  colors.forEach(({ contrast }) => {
+    t.is(contrast >= 3, true)
   })
 })
 
