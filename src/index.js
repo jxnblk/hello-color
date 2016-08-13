@@ -89,7 +89,8 @@ const hello = (base, options = {}) => {
     base: chroma(base).hex(),
     color,
     contrast: chroma.contrast(base, color),
-    dark: isDark
+    dark: isDark,
+    scale: chroma.scale([base, color]).colors(8)
   }
 
   return result

@@ -108,6 +108,21 @@ const Title = ({ color, base }) => h('div')({
   })('color')
 )
 
+const Scale = ({ scale }) => h('div')({
+  style: {
+    display: 'flex'
+  }
+})(
+  ...scale.map(color => h('div')({
+    style: {
+      flex: '1 1 auto',
+      padding: 32,
+      backgroundColor: color,
+      transition: 'background-color .5s ease-out'
+    }
+  })())
+)
+
 const Footer = ({ base, dark }) => h('footer')({
   style: {
     fontFamily: '-apple-system, sans-serif',
@@ -170,6 +185,7 @@ const Root = ({
       })(),
       pre(preText)
     ),
+    Scale(props),
     Footer(props)
   )
 }
