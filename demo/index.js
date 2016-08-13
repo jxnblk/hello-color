@@ -2,10 +2,7 @@
 import update from 'morphdom'
 import h from 'h0'
 import bikeshed from '@jxnblk/bikeshed'
-import Color from 'color'
 import hello from '../lib'
-
-const dark = c => Color(c).dark()
 
 const link = h('a')({
   style: {
@@ -96,13 +93,13 @@ const Title = ({ color, base }) => h('div')({
   })('color')
 )
 
-const Footer = ({ base }) => h('footer')({
+const Footer = ({ base, dark }) => h('footer')({
   style: {
     fontFamily: '-apple-system, sans-serif',
     fontSize: 14,
     padding: 32,
     color: base,
-    backgroundColor: dark(base) ? 'white' : 'black'
+    backgroundColor: dark ? 'white' : 'black'
   }
 })(
   link({

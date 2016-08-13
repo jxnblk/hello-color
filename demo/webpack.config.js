@@ -15,7 +15,6 @@ module.exports = {
 
   output: {
     path: __dirname,
-    publicPath: 'demo',
     filename: '[name].js'
   },
 
@@ -24,6 +23,11 @@ module.exports = {
       {
         test: /\.js?$/,
         exclude: /node_modules/,
+        loader: 'babel'
+      },
+      {
+        test: /\.js?$/,
+        include: /bikeshed/,
         loader: 'babel'
       }
     ]
@@ -34,6 +38,7 @@ module.exports = {
   ],
 
   devServer: {
+    contentBase: 'demo',
     hot: true
   }
 }

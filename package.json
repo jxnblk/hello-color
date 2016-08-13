@@ -6,6 +6,7 @@
   "scripts": {
     "prepublish": "babel lib --out-dir dist",
     "build": "webpack -p --progress --colors --config demo/webpack.config.js",
+    "gh-pages": "gh-pages -d demo",
     "start": "webpack-dev-server --progress --colors --config demo/webpack.config.js",
     "test": "ava -v"
   },
@@ -23,6 +24,7 @@
     "babel-preset-stage-0": "^6.5.0",
     "babel-register": "^6.11.6",
     "color": "^0.11.3",
+    "gh-pages": "^0.11.0",
     "h0": "^1.0.0-beta.4",
     "morphdom": "^2.0.2",
     "webpack": "^1.12.2",
