@@ -2,34 +2,33 @@
 var webpack = require('webpack')
 
 module.exports = {
-
   entry:  {
     dev: [
       'webpack-dev-server/client?http://localhost:8080/',
       'webpack/hot/only-dev-server',
-      './demo/entry.js'
+      './demo/index.js'
     ],
     bundle: [
-      './demo/entry.js'
+      './demo/index.js'
     ],
   },
 
   output: {
     path: __dirname,
-    publicPath: 'demo',
     filename: '[name].js'
   },
 
   module: {
     loaders: [
       {
-        test: /\.jsx?$/,
+        test: /\.js?$/,
         exclude: /node_modules/,
-        loaders: ['babel']
+        loader: 'babel'
       },
       {
-        test: /\.json$/,
-        loaders: ['json']
+        test: /\.js?$/,
+        include: /bikeshed/,
+        loader: 'babel'
       }
     ]
   },
@@ -39,7 +38,7 @@ module.exports = {
   ],
 
   devServer: {
+    contentBase: 'demo',
     hot: true
   }
-
 }
