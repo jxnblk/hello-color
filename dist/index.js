@@ -81,7 +81,27 @@ function complementary(options) {
     }
   }
 
+  function multiply(a, b, factor) {
+    a = (0, _color2['default'])(a).rgb();
+    b = (0, _color2['default'])(b).rgb();
+    var obj = {};
+    Object.keys(a).forEach(function (key) {
+      obj[key] = a[key] - factor * Math.sqrt(a[key] * b[key]);
+    });
+    return (0, _color2['default'])(obj).hexString();
+  }
+
+  function getMix(color) {
+    var length = 8;
+    return Array.from({ length: length }, function (a, i) {
+      return i;
+    }).map(function (i) {
+      return multiply(base, color, (i + 0) / length);
+    });
+  }
+
   var color = resolveColor();
+  var mix = getMix(color);
 
   var obj = Object.assign({
     base: base.hexString(),
@@ -89,7 +109,8 @@ function complementary(options) {
     dark: dark,
     color: color,
     contrast: contrast,
-    adjusted: adjusted
+    adjusted: adjusted,
+    mix: mix
   }, hsl);
 
   return obj;

@@ -3,22 +3,8 @@ import hello from '../lib'
 import { round, padLeft } from 'lodash'
 
 const body = document.body
-const x = document.getElementById('x')
-const a = document.getElementById('a')
-const b = document.getElementById('b')
-const m1 = document.getElementById('m1')
-const m2 = document.getElementById('m2')
-const m3 = document.getElementById('m3')
-const m4 = document.getElementById('m4')
-const m5 = document.getElementById('m5')
-const m6 = document.getElementById('m6')
-const m7 = document.getElementById('m7')
-const m8 = document.getElementById('m8')
-const d = document.getElementById('d')
 
 const timer = 3000
-
-let id
 
 function randomHex () {
   let hex = Math.floor(Math.random() * 16777215).toString(16)
@@ -26,8 +12,7 @@ function randomHex () {
 }
 
 function changeColors () {
-  clearInterval(id)
-  const threshold = 3
+  const threshold = 4
   let result = hello({
     color: randomHex(),
     saturation: .25,
@@ -43,7 +28,7 @@ function changeColors () {
     mix
   } = result
 
-  console.log(color, base)
+  console.log(color, base, contrast, mix)
 
   body.style.color = color
   body.style.backgroundColor = base
@@ -59,12 +44,12 @@ function changeColors () {
   m7.style.backgroundColor = mix[6]
   m8.style.backgroundColor = mix[7]
 
-  id = setInterval(changeColors, timer)
+  pre.textContent = `${color.toLowerCase()} : ${base.toLowerCase()}`
+  cont.textContent = contrast
+
 }
 
 body.style.fontFamily = '-apple-system, sans-serif'
-body.style.textTransform = 'uppercase'
-body.style.letterSpacing = '.3em'
 body.style.padding = '32px'
 body.style.margin = '0'
 body.style.minHeight = '100vh'
@@ -73,7 +58,11 @@ body.style.alignItems = 'center'
 body.style.justifyContent = 'center'
 body.style.flexDirection = 'column'
 body.style.transition = 'color .8s ease-out, background-color .4s ease-out'
+body.style.cursor = 'pointer'
 
+x.style.fontSize = '2vw'
+x.style.textTransform = 'uppercase'
+x.style.letterSpacing = '.3em'
 x.style.display = 'flex'
 x.style.alignItems = 'center'
 x.style.justifyContent = 'center'
@@ -82,6 +71,7 @@ x.style.flexWrap = 'wrap'
 a.style.transition = 'color .8s ease-out, background-color .4s ease-out'
 a.style.padding = '32px'
 b.style.padding = '32px'
+m.style.display = 'flex'
 m1.style.padding = '16px'
 m2.style.padding = '16px'
 m3.style.padding = '16px'
@@ -90,8 +80,21 @@ m5.style.padding = '16px'
 m6.style.padding = '16px'
 m7.style.padding = '16px'
 m8.style.padding = '16px'
-d.style.padding = '32px'
-d.style.backgroundColor = 'rgba(0, 0, 0, .5)'
+pre.style.fontFamily = 'Menlo, monospace'
+pre.style.fontSize = '14px'
+pre.style.padding = '32px'
+cont.style.fontFamily = 'Menlo, monospace'
+cont.style.fontSize = '14px'
 
 changeColors()
 
+body.addEventListener('click', changeColors)
+
+pre.addEventListener('click', (e) => {
+  e.preventDefault()
+  e.stopPropagation()
+  const selection = window.getSelection()
+  const range = document.createRange()
+  range.selectNodeContents(e.target)
+  selection.addRange(range)
+})
