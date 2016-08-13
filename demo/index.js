@@ -2,13 +2,29 @@
 import update from 'morphdom'
 import h from 'h0'
 import bikeshed from '@jxnblk/bikeshed'
-import hello from '../lib'
+import hello from '../src'
 
 const link = h('a')({
   style: {
     color: 'inherit',
     fontWeight: 'bold',
     marginRight: 16
+  }
+})
+
+const button = h('button')({
+  style: {
+    fontFamily: 'inherit',
+    fontSize: 14,
+    fontWeight: 600,
+    padding: 8,
+    border: 0,
+    borderRadius: 3,
+    color: 'inherit',
+    backgroundColor: 'transparent',
+    boxShadow: 'inset 0 0 0 1px currentcolor',
+    WebkitAppearance: 'none',
+    appearance: 'none'
   }
 })
 
@@ -151,7 +167,8 @@ const Root = ({
         name: 'colors',
         value: `${color.toLowerCase()} : ${backgroundColor.toLowerCase()}`
       })(),
-      pre(preText)
+      pre(preText),
+      // button({ onclick: startTimer })('Autoplay')
     ),
     Footer(props)
   )
@@ -159,11 +176,9 @@ const Root = ({
 
 
 const render = () => {
-  const threshold = 3
-  const result = hello({
-    color: bikeshed(),
+  const result = hello(bikeshed(), {
     saturation: .25,
-    contrast: threshold
+    contrast: 3
   })
   console.log(result)
 
@@ -177,6 +192,10 @@ const render = () => {
   } else {
     return next
   }
+}
+
+const startTimer = () => {
+  setInterval(render, 3000)
 }
 
 const tree = render()

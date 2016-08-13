@@ -4,10 +4,15 @@ import Color from 'color'
 import bikeshed from '@jxnblk/bikeshed'
 
 import hello from '../lib'
+import nextHello from '../src'
 
 let result = hello({
   color: '#f00'
 })
+
+const nextResult = nextHello('#f00', {})
+console.log(result)
+console.log(nextResult)
 
 test('returns an object', t => {
   t.is(typeof result, 'object')
