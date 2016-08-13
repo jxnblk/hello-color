@@ -1,5 +1,7 @@
 # hello-color
 
+Functional color palette generator
+
 http://jxnblk.com/hello-color
 
 [![Build Status](https://travis-ci.org/jxnblk/hello-color.svg?branch=master)](https://travis-ci.org/jxnblk/hello-color)
