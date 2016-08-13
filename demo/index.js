@@ -21,8 +21,7 @@ const button = h('button')({
     border: 0,
     borderRadius: 3,
     color: 'inherit',
-    backgroundColor: 'transparent',
-    boxShadow: 'inset 0 0 0 1px currentcolor',
+    backgroundColor: 'rgba(0, 0, 0, .125)',
     WebkitAppearance: 'none',
     appearance: 'none'
   }
@@ -123,7 +122,10 @@ const Footer = ({ base, dark }) => h('footer')({
   })('GitHub'),
   link({
     href: 'http://jxnblk.com',
-  })('Made by Jxnblk')
+  })('Made by Jxnblk'),
+  button({
+    onclick: e => toggleAutoplay()
+  })(timer ? 'Stop' : 'Autoplay')
 )
 
 const Root = ({
@@ -142,7 +144,6 @@ const Root = ({
   const preText = `
     ${Math.round(props.contrast * 100) / 100} contrast
     ${level}
-    ${props.maxed ? 'maxed out' : ''}
   `.replace(/[\n\s]+/g, ' ').trim()
 
   return h('div')(
@@ -167,8 +168,7 @@ const Root = ({
         name: 'colors',
         value: `${color.toLowerCase()} : ${backgroundColor.toLowerCase()}`
       })(),
-      pre(preText),
-      // button({ onclick: startTimer })('Autoplay')
+      pre(preText)
     ),
     Footer(props)
   )
@@ -176,11 +176,12 @@ const Root = ({
 
 
 const render = () => {
-  const result = hello(bikeshed(), {
+  const color = bikeshed()
+  const result = hello(color, {
     saturation: .25,
     contrast: 3
   })
-  console.log(result)
+  console.log(result.base, result.color)
 
   const next = Root({
     backgroundColor: result.base,
@@ -194,8 +195,15 @@ const render = () => {
   }
 }
 
-const startTimer = () => {
-  setInterval(render, 3000)
+let timer
+
+const toggleAutoplay = () => {
+  if (timer) {
+    clearInterval(timer)
+  } else {
+    timer = setInterval(render, 3000)
+    render()
+  }
 }
 
 const tree = render()
