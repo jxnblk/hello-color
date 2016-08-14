@@ -210,12 +210,13 @@ const Root = ({
 
 
 const render = () => {
-  const color = bikeshed()
+  const color = params.c ? '#' + params.c : bikeshed()
   const result = hello(color, {
     saturation: .25,
     contrast: 3,
     hues: 5,
   })
+  history.pushState(null, null, `?c=${color.replace(/#/, '')}`)
   console.log(result.base, result.color)
 
   const next = Root({
@@ -241,6 +242,16 @@ const toggleAutoplay = () => {
   }
 }
 
+const parseQueryString = (str) => {
+  return str.replace('?', '').split(/&/)
+    .reduce((a, b) => {
+      const [ key, value ] = b.split('=')
+      a[key] = value
+      return a
+    }, {})
+}
+const params = parseQueryString(window.location.search)
 const tree = render()
+params.c = null
 document.body.appendChild(tree)
 
