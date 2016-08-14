@@ -212,7 +212,7 @@ const Root = ({
 const render = () => {
   const color = params.c ? '#' + params.c : bikeshed()
   const result = hello(color, {
-    saturation: .25,
+    saturation: 1 / 8,
     contrast: 3,
     hues: 5,
   })

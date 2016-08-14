@@ -8,7 +8,7 @@ const negate = (color) => {
 }
 
 const getColor = (base, {
-  multiplier = 1,
+  multiplier,
   lightness,
   saturation,
 }) => {
@@ -28,7 +28,7 @@ const getColor = (base, {
     .hex()
 }
 
-const resolveColor = base => options => (color, multiplier = 9 / 8) => {
+const resolveColor = base => options => (color, multiplier = 17 / 16) => {
   color = color || getColor(base, {
     ...options,
     multiplier
@@ -43,15 +43,18 @@ const resolveColor = base => options => (color, multiplier = 9 / 8) => {
   const [ h, s, l ] = chroma(color).hsl()
 
   if ((s === 0 || s === 1) && (l === 0 || l === 1)) {
-    return resolveColor(base)(options)(null, -9/8)
+    return resolveColor(base)(options)(null, -18/16)
   }
 
   color = getColor(base, {
-    options,
+    ...options,
     multiplier
   })
 
-  return resolveColor(base)(options)(color, multiplier + 1/8)
+  const isNegative = multiplier < 0
+  const mult = multiplier + (1/16 * (isNegative ? -1 : 1))
+
+  return resolveColor(base)(options)(color, mult)
 }
 
 const rotate = base => deg => {
@@ -73,7 +76,7 @@ const getHues = base => length => {
 const hello = (base, options = {}) => {
   const {
     saturation = 0,    // s shift amount
-    lightness = 0.125, // l shift amount
+    lightness = 1 / 16, // l shift amount
     contrast = 3,      // min contrast
     hues = 3
   } = options
