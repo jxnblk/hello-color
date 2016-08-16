@@ -216,7 +216,10 @@ const render = () => {
     contrast: 3,
     hues: 5,
   })
-  history.pushState(null, null, `?c=${color.replace(/#/, '')}`)
+  if (!params.c) {
+    history.pushState(null, null, `?c=${color.replace(/#/, '')}`)
+  }
+  params.c = null
   console.log(result.base, result.color)
 
   const next = Root({
@@ -230,6 +233,12 @@ const render = () => {
     return next
   }
 }
+
+window.addEventListener('popstate', () => {
+  const { c } = parseQueryString(window.location.search)
+  params.c = c
+  render()
+})
 
 let timer
 
@@ -250,8 +259,9 @@ const parseQueryString = (str) => {
       return a
     }, {})
 }
+
 const params = parseQueryString(window.location.search)
 const tree = render()
-params.c = null
+
 document.body.appendChild(tree)
 
