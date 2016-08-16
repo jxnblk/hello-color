@@ -220,7 +220,13 @@ const render = () => {
     history.pushState(null, null, `?c=${color.replace(/#/, '')}`)
   }
   params.c = null
-  console.log(result.base, result.color)
+  console.log(
+    '%c%s%c%s',
+    `padding:4px;color:${result.color};background-color:${result.base}`,
+    ' Aa ',
+    'color:black',
+    ' ' + result.color + ' ' + result.base
+  )
 
   const next = Root({
     backgroundColor: result.base,
