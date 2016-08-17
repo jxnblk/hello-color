@@ -255,26 +255,6 @@ const render = () => {
       name: 'viewport',
       content: 'width=device-width,initial-scale=1'
     })(),
-    h('meta')({
-      name: 'twitter:card',
-      content: 'summary_large_image'
-    })(),
-    h('meta')({
-      name: 'twitter:site',
-      content: '@jxnblk'
-    })(),
-    h('meta')({
-      name: 'twitter:title',
-      content: 'Hello Color'
-    })(),
-    h('meta')({
-      name: 'twitter:description',
-      content: 'Functional color palette generator'
-    })(),
-    h('meta')({
-      name: 'twitter:image',
-      content: cardimg
-    })(),
     h('style')('*{box-sizing:border-box;}body{margin:0}')
   )
 
