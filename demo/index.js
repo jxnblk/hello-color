@@ -283,6 +283,7 @@ let timer
 const toggleAutoplay = () => {
   if (timer) {
     clearInterval(timer)
+    timer = null;
   } else {
     timer = setInterval(render, 3000)
     render()
