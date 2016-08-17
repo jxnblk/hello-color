@@ -18,6 +18,7 @@ const button = h('button')({
     fontSize: 14,
     fontWeight: 600,
     padding: 8,
+    marginRight: 16,
     border: 0,
     borderRadius: 3,
     color: 'inherit',
@@ -149,15 +150,15 @@ const Footer = ({ base, color, dark }) => h('footer')({
     backgroundColor: color
   }
 })(
+  button({
+    onclick: e => toggleAutoplay()
+  })(timer ? 'Stop' : 'Autoplay'),
   link({
     href: 'https://github.com/jxnblk/hello-color',
   })('GitHub'),
   link({
     href: 'http://jxnblk.com',
-  })('Made by Jxnblk'),
-  button({
-    onclick: e => toggleAutoplay()
-  })(timer ? 'Stop' : 'Autoplay')
+  })('Made by Jxnblk')
 )
 
 const Root = ({
