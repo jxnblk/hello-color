@@ -208,6 +208,21 @@ const Root = ({
   )
 }
 
+// SVG Data URI image for Twitter card
+const getCardImage = ({ color, base }) => {
+  const canvas = document.createElement('canvas')
+  canvas.width = 800
+  canvas.height = 600
+
+  const ctx = canvas.getContext('2d')
+  ctx.font = '48px sans-serif'
+  ctx.textAlign = 'center'
+  ctx.fillText('Hello', 400, 50)
+
+  const img = canvas.toDataURL()
+
+  return img
+}
 
 const render = () => {
   const color = params.c ? '#' + params.c : bikeshed()
@@ -232,11 +247,28 @@ const render = () => {
     backgroundColor: result.base,
     ...result
   })
+  const cardimg = getCardImage(result)
+
+  const nextHead = h('head')(
+    h('title')(`Hello Color ${color}`),
+    h('meta')({
+      name: 'viewport',
+      content: 'width=device-width,initial-scale=1'
+    })(),
+    h('style')('*{box-sizing:border-box;}body{margin:0}')
+  )
 
   if (tree) {
     update(tree, next)
+    update(head, nextHead)
   } else {
-    return next
+    document.body.appendChild(next)
+    console.log(document.head, nextHead)
+    document.head.parentNode.replaceChild(nextHead, document.head)
+    return {
+      tree: next,
+      head: nextHead
+    }
   }
 }
 
@@ -267,7 +299,5 @@ const parseQueryString = (str) => {
 }
 
 const params = parseQueryString(window.location.search)
-const tree = render()
-
-document.body.appendChild(tree)
+const { tree, head } = render()
 
