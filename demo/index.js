@@ -264,7 +264,6 @@ const render = () => {
     update(head, nextHead)
   } else {
     document.body.appendChild(next)
-    console.log(document.head, nextHead)
     document.head.parentNode.replaceChild(nextHead, document.head)
     return {
       tree: next,
