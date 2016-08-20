@@ -65,7 +65,7 @@ const input = h('input')({
 const Main = ({ style, ...props }) => h('main')({
   ...props,
   style: {
-    fontFamily: '-apple-system, sans-serif',
+    fontFamily: '-apple-system, BlinkMacSystemFont, sans-serif',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
@@ -95,6 +95,7 @@ const Title = ({ color, base }) => h('div')({
 })(
   h('h1')({
     style: {
+      fontSize: 'calc(2em + 1vw)',
       padding: 32,
       color: base,
       backgroundColor: color,
@@ -105,6 +106,7 @@ const Title = ({ color, base }) => h('div')({
   })('hello'),
   h('h1')({
     style: {
+      fontSize: 'calc(2em + 1vw)',
       padding: 32,
     }
   })('color')
@@ -143,7 +145,7 @@ const ColorRow = ({ color, colors }) => h('div')({
 
 const Footer = ({ base, color, dark }) => h('footer')({
   style: {
-    fontFamily: '-apple-system, sans-serif',
+    fontFamily: '-apple-system, BlinkMacSystemFont, sans-serif',
     fontSize: 14,
     padding: 32,
     color: base,
