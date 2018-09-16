@@ -2,3 +2,4 @@
 dist
 demo/dev.js
 demo/bundle.js
+node_modules
