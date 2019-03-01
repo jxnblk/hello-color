@@ -23,7 +23,7 @@
     "@jxnblk/bikeshed": "^1.0.0-beta.1",
     "ava": "^1.2.1",
     "babel-loader": "^8.0.5",
-    "gh-pages": "^0.11.0",
+    "gh-pages": "^2.0.1",
     "h0": "^1.0.0-beta.4",
     "morphdom": "^2.0.2",
     "webpack": "^4.29.6",
