@@ -1,4 +1,3 @@
-
 import test from 'ava'
 import chroma from 'chroma-js'
 import bikeshed from '@jxnblk/bikeshed'
@@ -41,4 +40,3 @@ test(`should pass contrast (Testing ${colors.length} random colors)`, t => {
     t.is(contrast >= 3, true)
   })
 })
-
