@@ -1,167 +1,183 @@
-
-import update from 'morphdom'
-import h from 'h0'
+import React from 'react'
+import ReactDOM from 'react-dom'
 import bikeshed from '@jxnblk/bikeshed'
 import hello from '../src'
 
-const link = h('a')({
-  style: {
-    color: 'inherit',
-    fontWeight: 'bold',
-    marginRight: 16
-  }
-})
+const Link = props =>
+  <a
+    {...props}
+    style={{
+      color: 'inherit',
+      fontWeight: 'bold',
+      marginRight: 16
+    }}
+  />
 
-const button = h('button')({
-  style: {
-    fontFamily: 'inherit',
-    fontSize: 14,
-    fontWeight: 600,
-    padding: 8,
-    marginRight: 16,
-    border: 0,
-    borderRadius: 3,
-    color: 'inherit',
-    backgroundColor: 'rgba(0, 0, 0, .125)',
-    WebkitAppearance: 'none',
-    appearance: 'none'
-  }
-})
 
-const pre = h('pre')({
-  style: {
-    fontFamily: 'Menlo, monospace',
-    fontSize: 14,
-    padding: 16,
-  }
-})
+const Button = props =>
+  <button
+    {...props}
+    style={{
+      fontFamily: 'inherit',
+      fontSize: 14,
+      fontWeight: 600,
+      padding: 8,
+      marginRight: 16,
+      border: 0,
+      borderRadius: 3,
+      color: 'inherit',
+      backgroundColor: 'rgba(0, 0, 0, .125)',
+      WebkitAppearance: 'none',
+      appearance: 'none'
+    }}
+  />
 
-const label = h('label')({
-  style: {
-    position: 'absolute',
-    height: 1,
-    width: 1,
-    overflow: 'hidden',
-    clip: 'rect(1px,1px,1px,1px)'
-  }
-})
+const Pre = props =>
+  <pre
+    {...props}
+    style={{
+      fontFamily: 'Menlo, monospace',
+      fontSize: 14,
+      padding: 16,
+    }}
+  />
 
-const input = h('input')({
-  style: {
-    fontFamily: 'Menlo, monospace',
-    fontSize: 14,
-    textAlign: 'center',
-    padding: 16,
-    maxWidth: '100%',
-    color: 'inherit',
-    backgroundColor: 'transparent',
-    border: 0,
-    outline: 'none',
-    WebkitAppearance: 'none',
-    appearance: 'none'
-  }
-})
+const Label = props =>
+  <label
+    {...props}
+    style={{
+      position: 'absolute',
+      height: 1,
+      width: 1,
+      overflow: 'hidden',
+      clip: 'rect(1px,1px,1px,1px)'
+    }}
+  />
 
-const Main = ({ style, ...props }) => h('main')({
-  ...props,
-  style: {
-    fontFamily: '-apple-system, BlinkMacSystemFont, sans-serif',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    flexDirection: 'column',
-    minHeight: '100vh',
-    padding: 32,
-    transitionProperty: 'color, background-color',
-    transitionTimingFunction: 'ease-out',
-    transitionDuration: '1s, .5s',
-    cursor: 'pointer',
-    WebkitUserSelect: 'none',
-    userSelect: 'none',
-    ...style
-  }
-})
+const Input = props =>
+  <input
+    {...props}
+    style={{
+      fontFamily: 'Menlo, monospace',
+      fontSize: 14,
+      textAlign: 'center',
+      padding: 16,
+      maxWidth: '100%',
+      color: 'inherit',
+      backgroundColor: 'transparent',
+      border: 0,
+      outline: 'none',
+      WebkitAppearance: 'none',
+      appearance: 'none'
+    }}
+  />
 
-const Title = ({ color, base }) => h('div')({
-  style: {
-    fontSize: '2vw',
-    textTransform: 'uppercase',
-    letterSpacing: '.3em',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginBottom: 64
-  }
-})(
-  h('h1')({
-    style: {
-      fontSize: 'calc(2em + 1vw)',
+const Main = ({ style, ...props }) =>
+  <main
+    {...props}
+    style={{
+      fontFamily: '-apple-system, BlinkMacSystemFont, sans-serif',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      flexDirection: 'column',
+      minHeight: '100vh',
       padding: 32,
-      color: base,
-      backgroundColor: color,
       transitionProperty: 'color, background-color',
       transitionTimingFunction: 'ease-out',
-      transitionDuration: '1s, .5s'
-    }
-  })('hello'),
-  h('h1')({
-    style: {
-      fontSize: 'calc(2em + 1vw)',
+      transitionDuration: '1s, .5s',
+      cursor: 'pointer',
+      WebkitUserSelect: 'none',
+      userSelect: 'none',
+      ...style
+    }}
+  />
+
+const Title = ({ color, base }) =>
+  <div
+    style={{
+      fontSize: '2vw',
+      textTransform: 'uppercase',
+      letterSpacing: '.3em',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      marginBottom: 64
+    }}>
+    <h1
+      style={{
+        fontSize: 'calc(2em + 1vw)',
+        padding: 32,
+        color: base,
+        backgroundColor: color,
+        transitionProperty: 'color, background-color',
+        transitionTimingFunction: 'ease-out',
+        transitionDuration: '1s, .5s'
+      }}>
+      hello
+    </h1>
+    <h1
+      style={{
+        fontSize: 'calc(2em + 1vw)',
+        padding: 32,
+      }}>
+      color
+    </h1>
+  </div>
+
+const ColorRow = ({ color, colors }) =>
+  <div
+    style={{
+      display: 'flex',
+      flexWrap: 'wrap',
+      paddingTop: 64,
+      paddingBottom: 64,
+      backgroundColor: color
+    }}>
+    {colors.map(color => (
+      <div
+        key={color}
+        style={{
+          flex: '1 1 auto',
+          padding: 8,
+          margin: 16,
+          backgroundColor: color,
+          transition: 'background-color .5s ease-out'
+        }}>
+        <Input
+          readOnly
+          title='Click to select color value'
+          name='color'
+          value={color.toLowerCase()}
+          onClick={e => {
+            e.stopPropagation()
+            e.target.setSelectionRange(0, e.target.value.length)
+          }}
+        />
+      </div>
+    ))}
+  </div>
+
+const Footer = ({ base, color, dark }) =>
+  <footer
+    style={{
+      fontFamily: '-apple-system, BlinkMacSystemFont, sans-serif',
+      fontSize: 14,
       padding: 32,
-    }
-  })('color')
-)
-
-const ColorRow = ({ color, colors }) => h('div')({
-  style: {
-    display: 'flex',
-    flexWrap: 'wrap',
-    paddingTop: 64,
-    paddingBottom: 64,
-    backgroundColor: color
-  }
-})(
-  ...colors.map(color => h('div')({
-    style: {
-      flex: '1 1 auto',
-      padding: 8,
-      margin: 16,
-      backgroundColor: color,
-      transition: 'background-color .5s ease-out'
-    }
-  })(
-    input({
-      readonly: true,
-      title: 'Click to select color value',
-      onclick: e => {
-        e.stopPropagation()
-        e.target.setSelectionRange(0, e.target.value.length)
-      },
-      name: color,
-      value: color.toLowerCase()
-    })()
-  ))
-)
-
-const Footer = ({ base, color, dark }) => h('footer')({
-  style: {
-    fontFamily: '-apple-system, BlinkMacSystemFont, sans-serif',
-    fontSize: 14,
-    padding: 32,
-    color: base,
-    backgroundColor: color
-  }
-})(
-  button({
-    onclick: e => toggleAutoplay()
-  })(timer ? 'Stop' : 'Autoplay'),
-  link({
-    href: 'https://github.com/jxnblk/hello-color',
-  })('GitHub'),
-  link({
-    href: 'http://jxnblk.com',
-  })('Made by Jxnblk')
-)
+      color: base,
+      backgroundColor: color
+    }}>
+    <button
+      onClick={toggleAutoplay}>
+      {timer ? 'Stop' : 'Autoplay'}
+    </button>
+    <Link href='https://github.com/jxnblk/hello-color'>
+      GitHub
+    </Link>
+    <Link href='https://jxnblk.com'>
+      Made by Jxnblk
+    </Link>
+  </footer>
 
 const Root = ({
   color,
@@ -181,33 +197,40 @@ const Root = ({
     ${level}
   `.replace(/[\n\s]+/g, ' ').trim()
 
-  return h('div')(
-    Main({
-      style: {
-        color,
-        backgroundColor
-      },
-      onclick: e => render()
-    })(
-      Title({ color, ...props }),
-      label({
-        for: 'colors'
-      })('Colors'),
-      input({
-        readonly: true,
-        title: 'Click to select color values',
-        onclick: e => {
-          e.stopPropagation()
-          e.target.setSelectionRange(0, e.target.value.length)
-        },
-        name: 'colors',
-        value: `${color.toLowerCase()} : ${backgroundColor.toLowerCase()}`
-      })(),
-      pre(preText)
-    ),
-    Footer({ color, ...props }),
-    ColorRow({ color, colors: props.scale.slice(0, props.scale.length - 1) }),
-    ColorRow({ color, colors: props.hues }),
+  return (
+    <div>
+      <Main
+        style={{
+          color,
+          backgroundColor
+        }}
+        onClick={render}>
+        <Title color={color} {...props} />
+        <label htmlFor='colors'>
+          Colors
+        </label>
+        <Input
+          readOnly
+          title='Click to select color values'
+          name='colors'
+          value={color.toLowerCase() + ' : ' + backgroundColor.toLowerCase()}
+          onClick={e => {
+            e.stopPropagation()
+            e.target.setSelectionRange(0, e.target.value.length)
+          }}
+        />
+        <pre>{preText}</pre>
+      </Main>
+      <Footer color={color} {...props} />
+      <ColorRow
+        color={color}
+        colors={props.scale.slice(0, props.scale.length - 1)}
+      />
+      <ColorRow
+        color={color}
+        colors={props.hues}
+      />
+    </div>
   )
 }
 
@@ -227,7 +250,35 @@ const getCardImage = ({ color, base }) => {
   return img
 }
 
-const render = () => {
+const App = props => {
+  const color = params.c ? '#' + params.c : bikeshed()
+  const result = hello(color, {
+    saturation: 1 / 8,
+    contrast: 3,
+    hues: 5,
+  })
+  if (!params.c) {
+    history.pushState(null, null, `?c=${color.replace(/#/, '')}`)
+  }
+  params.c = null
+  console.log(
+    '%c%s%c%s',
+    `padding:4px;color:${result.color};background-color:${result.base}`,
+    ' Aa ',
+    'color:black',
+    ' ' + result.color + ' ' + result.base
+  )
+
+  return (
+    <Root
+      {...result}
+      backgroundColor={result.base}
+    />
+  )
+}
+
+// old for reference
+const __render = () => {
   const color = params.c ? '#' + params.c : bikeshed()
   const result = hello(color, {
     saturation: 1 / 8,
@@ -274,6 +325,10 @@ const render = () => {
   }
 }
 
+const render = () => {
+  ReactDOM.render(<App />, root)
+}
+
 window.addEventListener('popstate', () => {
   const { c } = parseQueryString(window.location.search)
   params.c = c
@@ -301,5 +356,7 @@ const parseQueryString = (str) => {
 }
 
 const params = parseQueryString(window.location.search)
-const { tree, head } = render()
+
+render()
+// const { tree, head } = render()
 
