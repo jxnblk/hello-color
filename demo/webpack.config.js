@@ -1,44 +1,27 @@
-
-var webpack = require('webpack')
+const webpack = require('webpack')
 
 module.exports = {
-  entry:  {
-    dev: [
-      'webpack-dev-server/client?http://localhost:8080/',
-      'webpack/hot/only-dev-server',
-      './demo/index.js'
-    ],
-    bundle: [
-      './demo/index.js'
-    ],
-  },
-
+  entry: './demo/index.js',
   output: {
     path: __dirname,
-    filename: '[name].js'
+    filename: 'main.js',
   },
-
   module: {
-    loaders: [
+    rules: [
       {
         test: /\.js?$/,
         exclude: /node_modules/,
-        loader: 'babel'
+        use: 'babel-loader'
       },
       {
         test: /\.js?$/,
         include: /bikeshed/,
-        loader: 'babel'
+        use: 'babel-loader'
       }
     ]
   },
-
-  plugins: [
-    new webpack.HotModuleReplacementPlugin(),
-  ],
-
   devServer: {
     contentBase: 'demo',
-    hot: true
+    // hot: true
   }
 }

@@ -1,4 +1,3 @@
-
 import chroma from 'chroma-js'
 
 const negate = (color) => {
@@ -117,4 +116,3 @@ const hello = (base, options = {}) => {
 }
 
 export default hello
-
