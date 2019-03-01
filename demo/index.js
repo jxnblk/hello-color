@@ -167,10 +167,10 @@ const Footer = ({ base, color, dark }) =>
       color: base,
       backgroundColor: color
     }}>
-    <button
+    <Button
       onClick={toggleAutoplay}>
       {timer ? 'Stop' : 'Autoplay'}
-    </button>
+    </Button>
     <Link href='https://github.com/jxnblk/hello-color'>
       GitHub
     </Link>
@@ -234,20 +234,14 @@ const Root = ({
   )
 }
 
-// SVG Data URI image for Twitter card
-const getCardImage = ({ color, base }) => {
-  const canvas = document.createElement('canvas')
-  canvas.width = 800
-  canvas.height = 600
-
-  const ctx = canvas.getContext('2d')
-  ctx.font = '48px sans-serif'
-  ctx.textAlign = 'center'
-  ctx.fillText('Hello', 400, 50)
-
-  const img = canvas.toDataURL()
-
-  return img
+const Head = ({
+  color
+}) => {
+  return ReactDOM.createPortal(
+    <>
+      <title>Hello Color {color}</title>
+    </>
+  , document.head)
 }
 
 const App = props => {
@@ -270,63 +264,14 @@ const App = props => {
   )
 
   return (
-    <Root
-      {...result}
-      backgroundColor={result.base}
-    />
+    <>
+      <Head {...result} />
+      <Root
+        {...result}
+        backgroundColor={result.base}
+      />
+    </>
   )
-}
-
-// old for reference
-const __render = () => {
-  const color = params.c ? '#' + params.c : bikeshed()
-  const result = hello(color, {
-    saturation: 1 / 8,
-    contrast: 3,
-    hues: 5,
-  })
-  if (!params.c) {
-    history.pushState(null, null, `?c=${color.replace(/#/, '')}`)
-  }
-  params.c = null
-  console.log(
-    '%c%s%c%s',
-    `padding:4px;color:${result.color};background-color:${result.base}`,
-    ' Aa ',
-    'color:black',
-    ' ' + result.color + ' ' + result.base
-  )
-
-  const next = Root({
-    backgroundColor: result.base,
-    ...result
-  })
-  const cardimg = getCardImage(result)
-
-  const nextHead = h('head')(
-    h('title')(`Hello Color ${color}`),
-    h('meta')({
-      name: 'viewport',
-      content: 'width=device-width,initial-scale=1'
-    })(),
-    h('style')('*{box-sizing:border-box;}body{margin:0}')
-  )
-
-  if (tree) {
-    update(tree, next)
-    update(head, nextHead)
-  } else {
-    document.body.appendChild(next)
-    document.head.parentNode.replaceChild(nextHead, document.head)
-    return {
-      tree: next,
-      head: nextHead
-    }
-  }
-}
-
-const render = () => {
-  ReactDOM.render(<App />, root)
 }
 
 window.addEventListener('popstate', () => {
@@ -357,6 +302,8 @@ const parseQueryString = (str) => {
 
 const params = parseQueryString(window.location.search)
 
-render()
-// const { tree, head } = render()
+const render = () => {
+  ReactDOM.render(<App />, root)
+}
 
+render()
